@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load shop_tags %}
+{% load staticfiles %}
+{% block title %}All Products{% endblock %}
+
+{% block content %}
+<h2 class="text-center">there are total {% total_posts %} products available</h2>
+
+<ul>
+    <h1 style="text-align:center;"><a href="#" data-toggle="tooltip" title="Click To Show / Hide All Product List">
+        <button type="button"  data-toggle="collapse" data-target=".demo">All Products</button></a></h1>
+    {% for c in categories %}
+    <button type="button"  data-toggle="collapse" data-target="#{{ c.id }}">
+        <li>
+            <small><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></small>
+            {{ c.name }}
+        </li>
+        <div id="{{ c.id }}" class="collapse in demo">
+            <ul class="list-group">
+                {% for product in products %}
+                <!--<li class="list-group-item">{{ product.name }}<span class="badge">{{ product.price }}</span></li>-->
+                {% if product.category == c %}
+                <li class="list-group-item">{{ product.name }}<span class="badge">{{ product.price }}</span></li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </Button>
+</ul>
+
+
+{% endblock %}

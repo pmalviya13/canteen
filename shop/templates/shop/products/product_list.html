@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    {% if category %}{{ category.name }}
+    {% else %}
+        Products
+    {% endif %}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="">
+    <h1>
+        {% if category %}
+            {{ category.name|upper }}
+        {% else %}
+            PRODUCTS
+        {% endif %}
+    </h1>
+</div>
+<div class="row">
+
+    {% for product in products %}
+    <div class="col-md-3">
+        <div class="thumbnail">
+        <a href="{{ product.get_absolute_url }}">
+            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="Nature" style="width:100%;height:172px;">
+            <div class="caption">
+                <center>
+                    <h3>{{ product.name }}</h3><br>
+                    <h4>Rs. {{ product.price }}</h4>
+                </center>
+
+            </div>
+        </div>
+    </div>
+     {% endfor %}
+</div>
+{% endblock content %}

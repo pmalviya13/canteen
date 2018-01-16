@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block content %}
+
+<div>
+
+<form method="post" novalidate onsubmit="return Validation()" name="form">
+  {% csrf_token %}
+
+  {{ form.non_field_errors }}
+
+  {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field.errors }}
+    {{ hidden_field }}
+  {% endfor %}
+
+  <table class="table" style="max-width:500px;">
+    {% for field in form.visible_fields %}
+      <tr>
+        <th>{{ field.label_tag }}</th>
+        <td>
+          {{ field.errors }}
+          {{ field }}
+
+        </td>
+      </tr>
+    {% endfor %}
+      <tr>
+          <td colspan="2" align="center"><input type="submit" value="Sign Up" class="btn btn-primary"></td>
+      </tr>
+  </table>
+</form>
+</div>
+<script>
+  $(function() {
+        $( "#id_birth_date" ).datepicker({
+            dateFormat : 'mm/dd/yy',
+            changeMonth : true,
+            changeYear : true,
+            yearRange: '-100y:c+nn',
+            maxDate: '-1d'
+        });
+    });
+  </script>
+<script type="text/javascript">
+function Validation()
+{var a = document.form.phone.value;if(a==""){alert("please Enter the Phone Number");document.form.phone.focus();return false;}
+if(isNaN(a)){alert("Enter the valid Mobile Number(Like : 9566XXXXXX)");document.form.phone.focus();return false;}
+if((a.length < 10) || (a.length > 10)){alert(" Your Mobile Number must be 10 digit");document.form.phone.select();return false;}}
+$(function() {
+    $('#id_username').keyup(function() {
+        this.value = this.value.toUpperCase();
+    });
+});
+</script>
+{% endblock %}
+{% block footer %}
+{% endblock %}

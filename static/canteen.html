@@ -1,0 +1,121 @@
+{% load staticfiles %}
+<html>
+<head>
+	<title>Welcome</title>
+	<link rel="stylesheet" href="css/bootstrap.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/slider.css"/>
+	
+	<script src="js/jquery-1.8.3.min.js"></script>
+		<script src="js/responsiveslides.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="container" style="background: rgba(251, 244, 238, 0.95);border:1px solid black;border-radius:0px 0px 20px 20px;">
+		<div class="row" >
+			<div class="col-sm-8">
+				<p class="heading1" style="margin-left:2%">Baba Mahakal canteen<br><span style="margin-left:40%">Feel The Test</span></p>
+			</div>
+			<div class="col-sm-4 hidden-xs">
+				<a href="{% url 'index' %}">
+					<img class="logo" src="img/mitlogo.png" style="max-height:100;" />
+				</a>
+			</div>
+		</div>
+	</div>
+</div><!-- end of header -->
+
+<!--navigation -->
+<div class="container">
+	<div class="row ">
+		<nav class="menu2">
+			<ul class="">
+				<li><a href="#">HOME</a></li>
+				<li><a href="#">PRODUCTS</a></li>
+				<li><a href="#">SERVICES</a></li>
+				<li><a href="#">ABOUT US</a></li>
+				<li><a href="#">CONTACT US</a></li>
+			</ul>
+		</nav>
+	</div>
+</div><!--end of navigation -->
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-3 latestRecipes" style="">
+			<h3>Categories</h3>
+			<ul class="">
+				<li><a href="#"><small><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></small>pankaj</a></li>
+				<li><a href="#"><small><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></small>pankaj</a></li>
+				<li><a href="#"><small><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></small>pankaj</a></li>
+				<li><a href="#"><small><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></small>pankaj</a></li>
+				<li><a href="#"><small><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></small>pankaj</a></li>
+				<li><a href="#"><small><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></small>pankaj</a></li>
+			</ul>
+		</div>
+		<div class="col-sm-6">
+		<div class="slider">
+			<div class="callbacks_container">
+				<ul class="rslides callbacks callbacks1" id="slider">
+					<li id="callbacks1_s0"  ><img src="images/slide1.jpg"></li>
+					<li id="callbacks1_s1" ><img src="images/slide2.jpg"></li>
+					<li id="callbacks1_s2" ><img src="images/slide3.jpg" ></li>
+					<li id="callbacks1_s3" ><img src="images/slide1.jpg"></li>
+					<li id="callbacks1_s4" ><img src="images/slide2.jpg"></li>
+				</ul>
+			</div>
+		</div>
+		<script>
+			$(function () {
+				$("#slider").responsiveSlides({
+				auto: true,
+				nav: true,
+				speed: 500,
+				namespace: "callbacks",
+				pager: true,
+			});
+			});
+		</script>
+		</div>
+		<div class="col-sm-3">login	</div></div>
+  <div class="col-sm-12"></div>
+</div>
+<div class="container-fluid">
+	<div class="row footer">
+		<div class="col-sm-3 col-xs-6 footpadding">
+			<h4>Importtant Links</h4>
+			<ul>
+				<li ><a href="#">RGPV</a></li>
+				<li ><a href="#">MIT</a></li>
+				<li ><a href="#">Ujjain</a></li>
+			</ul>
+		</div>
+		<div class="col-sm-3 col-xs-6 footpadding">
+			<h4>Quick Links</h4>
+			<ul>
+				<li><a href="#">Home</a></li >
+				<li><a href="#">FeedBack</a></li>
+				<li><a href="#">Conatct</a></li>
+			</ul>
+		</div>
+		<div class="col-sm-3 col-xs-6 footpadding">
+			<h4>Connect Us</h4>
+			<ul>
+				<li><a href="#">Facebook</a></li>
+				<li><a href="#">Telegram</a></li>
+				<li><a href="#">Whatsapp</a></li>
+			</ul>
+		</div>
+		<div class="col-sm-3 col-xs-6 footpadding">
+			<h4>Become Developer</h4>
+			<ul>
+				<li><a href="#">MIT Canteen</a></li>
+				<li><a href="#">IDEAS</a></li>
+				<li><a href="#">send Ideas</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!--Footer-->
+</body>
+</html>

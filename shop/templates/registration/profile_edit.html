@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Edit your account{% endblock %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<h1>Edit your account</h1>
+ <p>You can edit your account using the following form:</p>
+ <form action="." method="post" enctype="multipart/form-data">
+     <div class="table-responsive" style="max-width:500px">
+     <table class="table ">
+         {% for user in user_form %}
+            <tr>
+                <td>{{ user.label_tag }}</td>
+                <td>{{ user }}</td>
+            </tr>
+         {% endfor %}
+         {% for prof in profile_form %}
+         <tr>
+             <td>{{ prof.label_tag }}</td>
+             <td>{{ prof }}</td>
+         </tr>
+         {% endfor %}
+         <tr>
+             <td align="center" colspan="2"><p><input type="submit" value="Save changes"></p></td>
+         </tr>
+     </table>
+         </div>
+     {% csrf_token %}
+ </form>
+{% else %}
+        <p>First <a href="{% url 'shop:login'%}">Login</a> to change password</p>
+    {% endif %}
+{% endblock %}

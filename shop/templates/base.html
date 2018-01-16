@@ -1,0 +1,241 @@
+{% load staticfiles %}
+{% load shop_tags %}
+<body>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {% block head %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.css' %}"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% endblock %}
+</head>
+<body style="background:#EBEBEB">
+
+
+<div class="container-fluid marque">
+    <div class="row">
+        <div class="col-md-12 ">
+            <marquee  class="" behavior="scroll" direction="left">Developed By Pankaj Malviya And Gaurav Arora</marquee>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ">
+                <h1 class="heading" >Baba Mahakal</b></h1>
+                <p class="slogen">Feel The Test</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid navigation" >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="primary-navigation " id="navigation1">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="glyphicon glyphicon-tasks" style="color:white"></span>
+                            </button>
+                            <h6 style="color:white" class="navbar-brand hidden-md hidden-lg">Menu</h6>
+                        </div>
+                        <div class="collapse navbar-collapse" id="myNavbar">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="{% url 'shop:index' %}">Home</a></li>
+                                {% for c in categories %}
+                                <li {% if category.slug == c.slug %}class="selected active"{% endif %}>
+                                <a href="{{ c.get_absolute_url }}" >{{ c.name }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="conatiner-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% if request.user.is_authenticated %}
+                <ul class="nav navbar-nav">
+                    <li {% if section == "dashboard" %}class="selected"{% endif %}>
+                        <a href="{% url 'shop:dashboard' %}">My dashboard</a>
+                    </li>
+                    <li {% if section == "Edit Profile" %}class="selected"{% endif %}>
+                        <a href="{% url 'shop:edit' %}">Edit profile</a>
+                    </li>
+                    <li {% if section == "change_password" %}class="selected"{% endif %}>
+                        <a href="{% url 'shop:change_password' %}">Change password</a>
+                    </li>
+                </ul>
+                {% endif %}
+                <div class="pull-right">
+                {% if request.user.is_authenticated %}
+                    Hello {{ request.user.first_name }},<a href="{% url 'shop:logout' %}">Logout</a>
+
+                {% else %}
+                    <ul class="nav navbar-right navbar-nav">
+                        <li><a href="{% url 'shop:login' %}"><span class="glyphicon glyphicon-log-in"></span> Log-in  </a></li>
+                        <li><a href="{% url 'shop:signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    </ul>
+
+
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" style="margin-top:30px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 ">
+                {% block content %}
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" style="">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+                    <!-- Wrapper for slides -->
+                    <center class="carousel-inner slider" >
+                        <div class="item active">
+                            <img class="img-responsive" src="{% static 'img/jai-mahakal.jpg' %}" alt="mahakal">
+                        </div>
+                        {% for slide in slider %}
+                        <div class="item">
+                            <img class="img-responsive" src="{{ slide.image.url }}" alt="{{ slide.name }}"">
+                        </div>
+                        {% endfor %}
+                    </center>
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                {% endblock content %}
+            </div>
+            <div class="col-md-3">
+                {% block sidebar %}
+
+                <!-- search bar -->
+                {% include 'shop/products/search.html' %}
+                <!-- end of search bar-->
+
+                <!-- latest product -->
+                <div>
+                    <center><h2>Latest Products</h2></center>
+                    {% latest_product %}
+                </div><!-- end latest product-->
+
+                {% endblock sidebar %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--footer start -->
+{% block footer %}
+<section id="footer" >
+        <div class="container">
+            <div class="row">
+                <center class="col-md-4" >
+                        <h3>CONTACT <span>INFO</span></h3>
+                        <div class="info">
+                            <ul>
+                                <li>
+                                  <h4><i class="fa fa-phone"></i> Telefone</h4>
+                                  <p>0734 - 1234567</p>
+                                </li>
+                                <li>
+                                  <h4><i class="fa fa-map-marker"></i> Address</h4>
+                                  <p>Mit Ujjain</p>
+                                </li>
+                                <li>
+                                  <h4><i class="fa fa-envelope"></i> E-mail</h4>
+                                  <p>canteen@gmail.com</p>
+
+                                </li>
+                            </ul>
+                        </div>
+                </center>
+
+                <!-- .col-md-4 close -->
+                <center class="col-md-4">
+                        <h3>LATEST <span >BLOG POSTS</span></h3>
+                        <div class="blog">
+                            <ul>
+                                <li>
+                                    <h4><a href="#">Nov 9-2014</a></h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adip iscing elit. Curabitur ut blandit sapien</p>
+                                </li>
+                                <li>
+                                    <h4><a href="#">Sep 8-2014</a></h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adip iscing elit. Curabitur ut blandit sapien</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                </center>
+                <!-- .col-md-4 close -->
+                <center class="col-md-4">
+                        <div class="social-media-link">
+                            <h3>Follow <span >US</span></h3>
+                            <ul>
+                                <li>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-dribbble"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-behance"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                </center>
+                <!-- .col-md-4 close -->
+            </div><!-- .row close -->
+        </div><!-- .containe close -->
+    </section><!-- #footer close -->
+{% endblock footer %}
+<!-- footer  bottom start -->
+
+<footer id="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="block">
+                        <p>Copyright &copy; 2018 - All Rights Reserved. Design and Developed By <a href="#">Pankaj Malviya</a>
+                        And <a href="#">Gaurav Arora</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+
